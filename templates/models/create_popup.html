@@ -1,0 +1,91 @@
+<!-- Create Model -->
+<div class="modal fade" id="ModelCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create task details</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" class="was-validated" action="{% url 'work' %}">
+          {% csrf_token %}
+          <div class="col">
+            <div class="row mb-3">
+                <label for="formGroupExampleInput" class="col-sm-5 col-form-label">Project</label>
+                <input type="text" class="col-sm-5 is-valid" name='project1' placeholder="Project" id="formGroupExampleInput" required>
+              <div class="invalid-feedback">
+                Fill out this field!
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="validationTooltip03" class="col-sm-5 col-form-label">Tasks/Modules</label>
+              <input type="text" class="col-sm-5 is-valid" id="validationTooltip03" name="tasks" placeholder="Tasks/Modules" required>
+              <div class="invalid-feedback">
+                Fill out this field!
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-sm-5 col-form-label">Team member assign to</label>
+              <div class="col-sm-4">
+                <select class="form-select" name="team_member" required aria-label="select example" required>
+                  <option value="">Select Employee</option>
+                  <option value="Kavin">Kavin</option>
+                  <option value="Arun">Arun</option>
+                  <option value="Naren">Naren</option>
+                  <option value="Kumar">Kumar</option>
+                  <option value="Ketav">Ketav</option>
+                </select>
+                <div class="invalid-feedback">
+                  Please select a valid team member.
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="formGroupExampleInput" class="col-sm-5 col-form-label">Shift timing</label>
+              <div class="col-sm-4">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+                    value="Day Time" required>
+                  <label class="form-check-label" for="flexRadioDefault1">
+                    Day Time
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                    value="Night Time" required>
+                  <label class="form-check-label" for="flexRadioDefault2">
+                    Night Time
+                  </label>
+                  <div class="invalid-feedback">Select desired work shift</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="formGroupExampleInput" class="col-sm-5 col-form-label">Comments</label>
+              <div class="col-sm-5">
+                <textarea type="textarea " class="col-sm-15" name="comments"
+                  placeholder="Leave a comments here"></textarea>
+              </div>
+            </div>
+
+            <div class="form-check mb-3">
+              <input type="checkbox" class="form-check-input" id="validationFormCheck1" required>
+              <label class="form-check-label" for="validationFormCheck1">Confirmation to create a task.</label>
+              <div class="invalid-feedback">Box should be tick.</div>      
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Create task</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>

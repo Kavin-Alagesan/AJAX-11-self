@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p></p>
+<div class="text-center">
+    <button type="button" class="col-form-label btn btn-primary btn-lg btn-info" data-toggle="modal"
+        data-target="#ModelCreate" style='margin-right:16px'>Click here to create task</button>
+    {% include 'models/create_popup.html' %}
+</div>
+<p></p>
+
+<div class="container">
+    <table border="5px solid #000;">
+
+        <thead>
+            <tr>
+                <th>Project</th>
+                <th>Task</th>
+                <th>Team member</th>
+                <th>Shift Timing</th>
+                <th>Comments</th>
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+            {% for object in datas %}
+            <tr>
+                <td style="padding:10px;">{{object.project}}</td>
+                <td style="padding:10px;">{{object.task}}</td>
+                <td style="padding:10px;">{{object.team_member}}</td>
+                <td style="padding:10px;">{{object.shift_timing}}</td>
+                <td style="padding:10px;">{{object.comments}}</td>
+                <td style="padding:10px;"><a href="" data-toggle="modal" data-target="#ModelUpdate" class="text-primary"
+                        onclick="edit('{{object.id}}');">Edit</a></td>
+                <td style="padding:10px;"><a href="" data-toggle="modal" data-target="#ModelDelete{{object.id}}"
+                        class="text-danger">Delete</a></td>
+            </tr>
+
+            <!-- Model for Delete -->
+            <div class="modal fade" id="ModelDelete{{object.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <form action="{% url 'delete_task' object.id %}" method="POST">
+                        {% csrf_token %}
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                <button type="button" class="btn-close" data-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Delete</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Model for Edit pop-up -->
+<div class="modal fade" id="ModelUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form method="POST" id="bind1">
+            {% csrf_token %}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Assigned Task</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <!-- edit and update html -->
+                    <div class="container">
+                        <div class="form-col">
+                            <div class="row mb-3">
+                                <label class="col-sm-4 col-form-label" for="project">Project</label>
+                                <input type="text" class="col-sm-5" class="form-control" name="project" id="project1">
+                            </div>
+                            <div class="row mb-3 needs-validation" novalidate>
+                                <label for="task" class="col-sm-4 col-form-label">Task</label>
+                                <input type="text" class="col-sm-5" name="task" id="task1">
+                                <div class="invalid-tooltip">
+                                    This field should not be empty!
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="formGroupExampleInput" class="col-sm-4 col-form-label">Team
+                                    member assign to</label>
+                                <select class="select col-sm-5" name="team_member" id="team_member1">
+                                    <option value="Kavin">Kavin</option>
+                                    <option value="Arun">Arun</option>
+                                    <option value="Naren">Naren</option>
+                                    <option value="Kumar">Kumar</option>
+                                    <option value="Ketav">Ketav</option>
+                                </select>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="formGroupExampleInput" name="flexRadioDefault" class="col-sm-4">Shift
+                                    timing</label>
+                                <div class="form-check">
+                                    <input class="form-check-input col-sm-5" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault145" value="Day Time">
+                                    <label class="col-sm-4" for="flexRadioDefault145">
+                                        Day Time
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input col-sm-5" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault245" value="Night Time">
+                                    <label class="col-sm-4" for="flexRadioDefault245">
+                                        Night Time
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="comments" class="col-sm-4">Comments</label>
+                                <input type="textarea" class="col-sm-8" name='comments' id="comments1">
+                            </div>
+                            <div class="row mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                                    <label class="form-check-label" for="invalidCheck">
+                                        Agree to terms and conditions
+                                    </label>
+                                    <div class="invalid-feedback">
+                                        You must agree before submitting.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+<script>
+    function edit(X) {
+        alert(X)
+        $.ajax({
+            url: 'http://127.0.0.1:8000/post/' + X + '/',
+            method: 'GET',
+            data: '',
+            datatype: 'json',
+        }).done(function (data) {
+            console.log(data);
+            $('#project1').val(data.project)
+            $('#task1').val(data.task)
+            $('#team_member1').val(data.team_member)
+            $('#shift_timing1').val(data.shift_timing)
+            console.log(data.shift_timing)
+            if (data.shift_timing == 'Day Time') {
+                $('#flexRadioDefault145').prop('checked', true)
+            }
+            else if (data.shift_timing == 'Night Time') {
+                $('#flexRadioDefault245').prop('checked', true)
+            }
+            $('#comments1').val(data.comments)
+            $('#bind1').attr('action', '/edit_and_update/' + X + '/')
+        })
+    }
+</script>
+
+<!-- $('#checkbox').attr('checked',(data.checkbox ? true:false)) -->
+
+
+
+
+
+{% endblock %}

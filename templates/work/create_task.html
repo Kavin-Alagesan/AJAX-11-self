@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+        {% for i in datas %}
+            {{ i }}
+        {% endfor %}
+        <p></p>
+        <!-- Message block -->
+        {% if messages %}
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+        {% endif %}
+      <!-- End message block -->
+    {% endblock %}

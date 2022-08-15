@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+    <p style="margin-left:700px;" class="col-sm-3 col-form-label"><a href="{% url 'create_task' %}">Check tasks</a></p>
+    <div class="container">
+        <form action="" method="POST" novalidate>
+            {% csrf_token %}
+            <div class="form-col">
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="project">Project</label>
+                    <input type="text" class="form-control" name="project" value={{object.project}}>
+                </div>
+                  <div class="row mb-3 needs-validation" novalidate>
+                    <label for="task" class="col-sm-2 col-form-label">Task</label>
+                    <input type="text" class="form-control" name="task" value={{object.task}}>
+                    <div class="invalid-tooltip">
+                      This field should not be empty!
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <label class="col-sm-2 col-form-label" for="deadline">Deadline</label>
+                    <div class="col-sm-4">
+                    <input type="date" class="form-control" name="deadline" value={{object.deadline}}>
+                    </div>
+                  </div>
+                  <div class="row mb-3" >
+                    <label for="formGroupExampleInput" class="col-sm-3 col-form-label">Team member assign to</label>
+                    <select class="form-select form-control" id="formGroupExampleInput" name="team_member"  >
+                      <option>{{object.team_member}}</option>
+                      <option value="Kavin">Kavin</option>
+                      <option value="Arun">Arun</option>
+                      <option value="Naren">Naren</option>
+                      <option value="Kumar">Kumar</option>
+                      <option value="Ketav">Ketav</option>
+                    </select>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="formGroupExampleInput" name="flexRadioDefault" class="col-sm-2 col-form-label"  value={{object.flexRadioDefault}}>Shift timing</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Day Shift
+                        </label>
+                    </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                          Night Shift
+                        </label>
+                      </div>
+                  </div>
+                  
+                  <div class="row mb-3">
+                    <label for="comments" class="col-sm-2 col-form-label">Comments</label>
+                    <input type="textarea" class="form-control" name='comments' value={{object.comments}}>
+                  </div>
+
+                  <!-- Update -->
+                  <div class="col">
+                    <label for="formGroupExampleInput" class="col-sm-5 col-form-label"></label>
+                    <button  type="button" class="btn btn-success btn-lg" data-toggle="modal" style='margin-right:16px' data-target="#exampleModal" >Update task</button>
+                  </div>
+                 <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                            Are you sure you want to make changes?
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+    
+                  <p></p>
+      
+                
+            </div>            
+        </form>
+    </div>
+        
+    {% endblock %}
